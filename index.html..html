@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#9a623d">
+  <title>My 30 Days 🌱</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">🌱 My 30 Days</div>
+
+    <div class="header-actions">
+      <button id="themeBtn" class="icon-btn" onclick="changerTheme()" aria-label="Changer le thème">🌙</button>
+      <button class="icon-btn" onclick="ouvrirParametres()" aria-label="Paramètres">⚙️</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ACCUEIL -->
+    <section id="accueil" class="hero">
+      <div class="hero-content">
+        <span class="hero-emoji">🌱</span>
+        <h1>My 30 Days</h1>
+        <p id="heroText">
+          30 jours pour prendre soin de toi, créer de bonnes habitudes et avancer à ton rythme.
+        </p>
+
+        <button class="main-btn" onclick="commencer()">
+          Commencer mon challenge ✨
+        </button>
+
+        <button class="secondary-btn" onclick="ouvrirParametres()">
+          ⚙️ Paramètres
+        </button>
+      </div>
+    </section>
+
+    <!-- APPLICATION -->
+    <section id="challenge" class="hidden">
+
+      <div id="decorations" class="decorations"></div>
+
+      <div class="welcome-card">
+        <div>
+          <p class="small-label">MON CHALLENGE</p>
+          <h2 id="titreJour">Jour 1</h2>
+          <p id="dateJour"></p>
+        </div>
+
+        <div class="day-circle">
+          <span id="numeroJour">1</span>
+          <small>/30</small>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <span>🔥</span>
+          <strong id="joursCompletes">0</strong>
+          <p>jours terminés</p>
+        </div>
+
+        <div class="stat-card">
+          <span>✅</span>
+          <strong id="habitudesCompletes">0</strong>
+          <p>habitudes</p>
+        </div>
+
+        <div class="stat-card">
+          <span>🏅</span>
+          <strong id="nombreBadges">0</strong>
+          <p>badges</p>
+        </div>
+      </section>
+
+      <!-- DÉFI DU JOUR -->
+      <section class="card">
+        <div class="section-title">
+          <span>✨</span>
+          <div>
+            <h2>Défi du jour</h2>
+            <p>Une petite action pour aujourd’hui</p>
+          </div>
+        </div>
+
+        <div id="defiDuJour" class="challenge-box"></div>
+      </section>
+
+      <!-- OBJECTIF -->
+      <section class="card">
+        <div class="section-title">
+          <span>🎯</span>
+          <div>
+            <h2>Mon objectif</h2>
+            <p id="objectifTexte">Définis ton objectif personnel.</p>
+          </div>
+        </div>
+
+        <button class="small-btn" onclick="modifierObjectif()">
+          Modifier mon objectif
+        </button>
+      </section>
+
+      <!-- CALENDRIER -->
+      <section class="card">
+        <div class="section-title">
+          <span>📅</span>
+          <div>
+            <h2>Mon calendrier</h2>
+            <p>30 jours, un jour à la fois.</p>
+          </div>
+        </div>
+
+        <div id="calendrier" class="calendar"></div>
+      </section>
+
+      <!-- HABITUDES -->
+      <section class="card">
+        <div class="section-title">
+          <span>🌿</span>
+          <div>
+            <h2>Mes habitudes</h2>
+            <p>Coche ce que tu as fait aujourd’hui.</p>
+          </div>
+        </div>
+
+        <div id="habitudes"></div>
+
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Progression</span>
+            <strong id="progressionTexte">0%</strong>
+          </div>
+
+          <div class="progress-bar">
+            <div id="progressionBarre"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BIEN-ÊTRE -->
+      <section class="card">
+        <div class="section-title">
+          <span>💚</span>
+          <div>
+            <h2>Mon bien-être</h2>
+            <p>Comment tu te sens aujourd’hui ?</p>
+          </div>
+        </div>
+
+        <label for="humeur">😊 Humeur</label>
+        <select id="humeur" onchange="sauverBienEtre()">
+          <option value="">Choisir</option>
+          <option value="😄">😄 Super</option>
+          <option value="🙂">🙂 Bien</option>
+          <option value="😐">😐 Moyenne</option>
+          <option value="😕">😕 Pas top</option>
+          <option value="😴">😴 Fatigué(e)</option>
+        </select>
+
+        <label for="energie">⚡ Énergie</label>
+        <select id="energie" onchange="sauverBienEtre()">
+          <option value="">Choisir</option>
+          <option value="haute">Haute</option>
+          <option value="moyenne">Moyenne</option>
+          <option value="basse">Basse</option>
+        </select>
+
+        <label for="sommeil">🌙 Sommeil</label>
+        <select id="sommeil" onchange="sauverBienEtre()">
+          <option value="">Choisir</option>
+          <option value="bon">Bon</option>
+          <option value="moyen">Moyen</option>
+          <option value="difficile">Difficile</option>
+        </select>
+      </section>
+
+      <!-- REPAS -->
+      <section class="card">
+        <div class="section-title">
+          <span>🍽️</span>
+          <div>
+            <h2>Mes repas</h2>
+            <p>Note simplement ce que tu as mangé.</p>
+          </div>
+        </div>
+
+        <label for="petitDejeuner">🌅 Petit-déjeuner</label>
+        <textarea id="petitDejeuner" placeholder="Ex : tartines, fruit..."></textarea>
+
+        <label for="dejeuner">☀️ Déjeuner</label>
+        <textarea id="dejeuner" placeholder="Ex : pâtes, légumes..."></textarea>
+
+        <label for="diner">🌙 Dîner</label>
+        <textarea id="diner" placeholder="Ex : soupe, riz..."></textarea>
+
+        <label for="collation">🍎 Collation</label>
+        <textarea id="collation" placeholder="Ex : fruit, yaourt..."></textarea>
+
+        <button class="small-btn" onclick="sauverRepas()">
+          Enregistrer mes repas
+        </button>
+      </section>
+
+      <!-- MOUVEMENT -->
+      <section class="card">
+        <div class="section-title">
+          <span>🧘</span>
+          <div>
+            <h2>Mouvement</h2>
+            <p>Choisis une activité qui te fait du bien.</p>
+          </div>
+        </div>
+
+        <div class="movement-options">
+          <button onclick="choisirMouvement('🚶 Marche')">🚶 Marche</button>
+          <button onclick="choisirMouvement('🧘 Étirements')">🧘 Étirements</button>
+          <button onclick="choisirMouvement('💃 Danse')">💃 Danse</button>
+          <button onclick="choisirMouvement('🚲 Vélo')">🚲 Vélo</button>
+          <button onclick="choisirMouvement('🏊 Natation')">🏊 Natation</button>
+          <button onclick="choisirMouvement('🛋️ Repos')">🛋️ Repos</button>
+        </div>
+
+        <p id="mouvementChoisi" class="selected-info">
+          Aucun mouvement sélectionné.
+        </p>
+
+        <label for="minutesMouvement">Durée approximative en minutes</label>
+        <input id="minutesMouvement" type="number" min="0" max="600" placeholder="Ex : 20">
+
+        <button class="small-btn" onclick="sauverMouvement()">
+          Enregistrer
+        </button>
+      </section>
+
+      <!-- BADGES -->
+      <section class="card">
+        <div class="section-title">
+          <span>🏅</span>
+          <div>
+            <h2>Mes badges</h2>
+            <p>Ils se débloquent au fil du challenge.</p>
+          </div>
+        </div>
+
+        <div id="badges" class="badges"></div>
+      </section>
+
+      <!-- JOURNAL -->
+      <section class="card">
+        <div class="section-title">
+          <span>📖</span>
+          <div>
+            <h2>Mon journal</h2>
+            <p>Écris quelques mots sur ta journée.</p>
+          </div>
+        </div>
+
+        <textarea
+          id="journal"
+          class="journal"
+          placeholder="Comment s'est passée ta journée ?"
+        ></textarea>
+
+        <button class="small-btn" onclick="sauverJournal()">
+          Enregistrer mon journal
+        </button>
+      </section>
+
+      <!-- TRAITEMENT -->
+      <section class="card">
+        <div class="section-title">
+          <span>⏰</span>
+          <div>
+            <h2>Rappel de traitement</h2>
+            <p>Un simple rappel local pour ton traitement prescrit.</p>
+          </div>
+        </div>
+
+        <input id="traitementNom" type="text" placeholder="Nom du traitement">
+
+        <input id="traitementHeure" type="time">
+
+        <button class="small-btn" onclick="sauverTraitement()">
+          Enregistrer le rappel
+        </button>
+
+        <div id="traitementAffichage" class="reminder-box"></div>
+      </section>
+
+      <!-- MUSIQUE -->
+      <section class="card music-card">
+        <div class="section-title">
+          <span>🎵</span>
+          <div>
+            <h2>Musique</h2>
+            <p>Une petite ambiance relaxante.</p>
+          </div>
+        </div>
+
+        <button id="musicBtn" class="main-btn" onclick="toggleMusique()">
+          🎵 Lancer la musique
+        </button>
+      </section>
+
+      <!-- SURPRISE -->
+      <section class="card surprise-card">
+        <span class="big-emoji">🎁</span>
+        <h2>Une petite surprise ?</h2>
+        <p id="surpriseTexte">Clique pour découvrir quelque chose.</p>
+
+        <button class="main-btn" onclick="surprise()">
+          ✨ Surprise
+        </button>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- PARAMÈTRES -->
+  <div id="parametres" class="modal hidden">
+
+    <div class="modal-content">
+
+      <button class="close-btn" onclick="fermerParametres()">✕</button>
+
+      <h2>⚙️ Paramètres</h2>
+
+      <div class="setting">
+        <label for="langue">🌍 Langue</label>
+        <select id="langue" onchange="changerLangue(this.value)">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+
+      <div class="setting">
+        <label for="saison">🌸 Décoration</label>
+        <select id="saison" onchange="changerSaison(this.value)">
+          <option value="auto">Automatique</option>
+          <option value="printemps">Printemps 🌸</option>
+          <option value="ete">Été ☀️</option>
+          <option value="automne">Automne 🍂</option>
+          <option value="hiver">Hiver ❄️</option>
+        </select>
+      </div>
+
+      <div class="setting">
+        <label class="switch-row">
+          <span>📳 Vibration</span>
+          <input type="checkbox" id="vibration" onchange="sauverParametres()">
+        </label>
+      </div>
+
+      <button class="small-btn full-btn" onclick="fermerParametres()">
+        Fermer
+      </button>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>🌱 My 30 Days — avance à ton rythme.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
